@@ -1,0 +1,21 @@
+version: '3'
+services:
+    api:
+        build:
+            context: server
+            dockerfile: Dockerfile.dev
+        volumes:
+            - /app/venv
+            - ./server:/app
+        command: >
+            sh -c "python manage.py makemigrations &&
+                   python manage.py test"
+    client:
+        build:
+            context: client
+            dockerfile: Dockerfile.dev
+        volumes:
+            - /app/node_modules
+            - ./client:/app
+        command: >
+            sh -c "npm run test"
