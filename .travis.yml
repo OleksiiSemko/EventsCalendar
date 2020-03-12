@@ -12,4 +12,5 @@ before_install:
   - sudo pip install docker-compose
 
 script:
-  - docker-compose -f docker-compose-tests.yml up --build
+  - docker-compose -f docker-compose-tests.yml run --rm client
+  - docker-compose -f docker-compose-tests.yml run --rm api
