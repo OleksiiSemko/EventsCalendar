@@ -13,5 +13,5 @@ before_install:
 
 script:
   - docker run -e CI=true someone/client npm run test
-  - docker run -e CI=true someone/api python manage.py tests
+  - docker run -e CI=true someone/api python manage.py test
   - docker run -e CI=true someone/api pylint *
