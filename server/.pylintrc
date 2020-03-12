@@ -1,0 +1,9 @@
+[MASTER]
+
+ignore = 
+    migrations,
+    __pycache__,
+    manage.py,
+    settings.py,
+    venv,
+    Dockerfile.dev
