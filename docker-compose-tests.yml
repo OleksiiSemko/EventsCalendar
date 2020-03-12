@@ -9,7 +9,8 @@ services:
             - ./server:/app
         command: >
             sh -c "python manage.py makemigrations &&
-                   python manage.py test"
+                   python manage.py test &&
+                   pylint *"
     client:
         build:
             context: client
