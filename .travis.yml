@@ -9,7 +9,7 @@ services:
 
 before_install:
   - docker build -t someone/client -f ./client/Dockerfile.dev ./client
-  - docker build -t someone/api -f ./client/Dockerfile.dev ./client
+  - docker build -t someone/api -f ./server/Dockerfile.dev ./server
 
 script:
   - docker run -e CI=true someone/client npm run test
