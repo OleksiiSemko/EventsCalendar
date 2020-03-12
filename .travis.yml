@@ -12,7 +12,7 @@ before_install:
   - docker build -t someone/api -f server/Dockerfile.dev ./server
 
 install:
-  - pip install pylint
+  - sudo pip3 install pylint
 script:
   - docker run -e CI=true someone/client npm run test
   - docker run -e CI=true someone/api python manage.py test && pylint server
