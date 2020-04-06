@@ -1,5 +1,6 @@
 export const GET_EVENT_LIST = 'GET_EVENT_LIST';
 export const ERROR_GENERATED = 'ERROR_GENERATED';
+export const FILTER_EVENTS = 'FILTER_EVENTS';
 
 export function getEventList() {
     return async dispatch => {
@@ -21,4 +22,9 @@ const onSuccess = events => ({
 const onError = error => ({
     type: ERROR_GENERATED,
     error
+})
+
+export const filterEvents = filteredEvents => ({
+    type: FILTER_EVENTS,
+    filteredEvents
 })

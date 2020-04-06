@@ -1,48 +1,60 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 
-import EventCard from '../../components/event-card/index'
+import EventCard from '../../components/event-card/index';
+import Filter from '../../components/filter-paper/index';
+
+import { getEventList } from '../../actions/events.actions';
 
 import './event-list.css';
 import { connect } from 'react-redux';
 
 const useStyles = makeStyles(theme => ({
     root: {
-      flexGrow: 1,
-    },
-    paper: {
-      height: 140,
-      width: 100,
+        display: 'flex',
+        justifyContent: 'space-around',
+        alignItems: 'flex-start',
     },
     control: {
       padding: theme.spacing(2),
     },
   }));
 
-function EventList({ events }) {
+function EventList({ events, categories, getEvents }) {
+    useEffect(() => {
+        getEvents()
+      }, [])
+
     const classes = useStyles();
     const [spacing] = React.useState(6);
 
-    const renderEvents = () => {
-        return events.map((i, index) => (
-            <Grid key={index} item>
-                <EventCard />
-            </Grid>
-        ));
-    }
-
         return (
-            <Grid container className={classes.root} spacing={2}>
-                <Grid item xs={12}>
-                    <Grid container justify="center" spacing={spacing}>
-                        { renderEvents() }
-                    </Grid>
+            <div className={classes.root}>
+                <Filter />
+                <Grid container spacing={spacing}>
+                    { renderEvents(events) }
                 </Grid>
-            </Grid>
+            </div>
         )
 }
 
-const mapStateToProps = state => ({events: state.events.events})
+const renderEvents = (events) => {
+    return events.map((i, index) => (
+        <Grid key={index} item>
+            <EventCard name='Oleksii' posted_data='16-03-20' description='' details='' 
+             categories={i.categories} 
+             adress='' data='22-04-20'/>
+        </Grid>
+    ));
+}
 
-export default connect(mapStateToProps)(EventList)
+const mapStateToProps = state => ({
+    events: state.events.filteredEvents,
+    categories: state.categories
+})
+const mapDsipatchToProps = dispatch => ({
+    getEvents: () => {dispatch(getEventList)}
+});
+
+export default connect(mapStateToProps, mapDsipatchToProps)(EventList)
